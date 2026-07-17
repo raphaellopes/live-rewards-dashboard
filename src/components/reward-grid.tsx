@@ -2,14 +2,16 @@ import { type FC } from 'react';
 import { formatPoints } from '../utils/format-points';
 
 export type RewardCategory = 'travel' | 'gift-card' | 'merchandise';
-
-interface RewardItemProps {
+export type Reward = {
   id: string;
   name: string;
   category: RewardCategory;
   points: number;
-  onAddToCart: (id: string) => void;
-  isAddToCartDisabled: boolean;
+};
+
+interface RewardItemProps extends Reward {
+  onAddToCart?: (id: string) => void;
+  isAddToCartDisabled?: boolean;
 }
 
 const CATEGORY_NAME_MAP: Record<RewardCategory, string> = {
@@ -24,6 +26,7 @@ const RewardItem: FC<RewardItemProps> = ({
   category,
   points,
   onAddToCart,
+  isAddToCartDisabled = false,
 }) => (
   <div className="grid grid-cols-4 gap-2 border-b border-gray-200 pb-2">
     <div className="col-span-2 flex flex-col">
@@ -35,8 +38,15 @@ const RewardItem: FC<RewardItemProps> = ({
         {CATEGORY_NAME_MAP[category]}
       </span>
     </div>
-    <div className="col-span-1 flex items-center justify-end">
-      <button className="text-sm text-blue-500" onClick={() => onAddToCart(id)}>
+    <div className="col-span-1 flex items-center justify-end gap-2">
+      {isAddToCartDisabled && (
+        <span className="text-sm text-red-500">Insufficient points</span>
+      )}
+      <button
+        className="text-sm text-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={isAddToCartDisabled}
+        onClick={() => onAddToCart?.(id)}
+      >
         Add to Cart
       </button>
     </div>

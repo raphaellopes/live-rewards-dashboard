@@ -11,7 +11,7 @@ const UserProfile: FC<UserProfileProps> = ({ name, points }) => {
   return (
     <div className="flex items-center gap-2">
       <div className="flex flex-col">
-        <span className="text-sm font-medium">{name}</span>
+        <h1 className="font-medium">{name}</h1>
         <span className="text-sm text-gray-500">{formatPoints(points)}</span>
       </div>
     </div>

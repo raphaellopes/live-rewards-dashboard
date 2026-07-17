@@ -1,5 +1,6 @@
 import UserProfile from './components/user-profile';
 import RewardGrid, { type RewardCategory } from './components/reward-grid';
+import Cart from './components/cart';
 
 // mocked data for for testing UI
 const MOCKED_REWARDS = [
@@ -47,7 +48,12 @@ function App() {
 
       <main className="page-content">
         <UserProfile name="John Doe" points={50000} />
-        <RewardGrid items={rewardItems} />
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Cart items={[]} totalPoints={0} onClickRedeem={() => {}} />
+          <div className="flex-1">
+            <RewardGrid items={rewardItems} />
+          </div>
+        </div>
       </main>
     </div>
   );
