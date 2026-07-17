@@ -1,8 +1,11 @@
 import UserProfile from './components/user-profile';
-import RewardGrid, { type RewardCategory } from './components/reward-grid';
+import RewardGrid from './components/reward-grid';
+import { type RewardCategory } from './utils/types';
 import Cart from './components/cart';
+import useCart from './hooks/use-cart';
 
 // mocked data for for testing UI
+const TOTAL_POINTS = 50000;
 const MOCKED_REWARDS = [
   { id: '1', name: 'Free Flight to Iceland', cost: 45000, category: 'travel' },
   {
@@ -27,14 +30,20 @@ const MOCKED_REWARDS = [
 ];
 
 function App() {
+  const { items, totalPoints, onClickRedeem, addToCart } = useCart();
   const rewardItems = MOCKED_REWARDS.map((reward) => ({
     id: reward.id,
     name: reward.name,
     category: reward.category as RewardCategory,
     points: reward.cost,
-    // @TODO: implement the logic from the props below
-    onAddToCart: () => {},
-    isAddToCartDisabled: false,
+    onAddToCart: () =>
+      addToCart({
+        id: reward.id,
+        name: reward.name,
+        category: reward.category as RewardCategory,
+        points: reward.cost,
+      }),
+    isAddToCartDisabled: totalPoints + reward.cost > TOTAL_POINTS,
   }));
 
   return (
@@ -47,9 +56,13 @@ function App() {
       </header>
 
       <main className="page-content">
-        <UserProfile name="John Doe" points={50000} />
+        <UserProfile name="John Doe" points={TOTAL_POINTS} />
         <div className="flex flex-col sm:flex-row gap-4">
-          <Cart items={[]} totalPoints={0} onClickRedeem={() => {}} />
+          <Cart
+            items={items}
+            totalPoints={totalPoints}
+            onClickRedeem={onClickRedeem}
+          />
           <div className="flex-1">
             <RewardGrid items={rewardItems} />
           </div>

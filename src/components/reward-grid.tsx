@@ -1,13 +1,6 @@
 import { type FC } from 'react';
 import { formatPoints } from '../utils/format-points';
-
-export type RewardCategory = 'travel' | 'gift-card' | 'merchandise';
-export type Reward = {
-  id: string;
-  name: string;
-  category: RewardCategory;
-  points: number;
-};
+import { type Reward, type RewardCategory } from '../utils/types';
 
 interface RewardItemProps extends Reward {
   onAddToCart?: (id: string) => void;
@@ -57,12 +50,14 @@ interface RewardGridProps {
   items: RewardItemProps[];
 }
 
-const RewardGrid: FC<RewardGridProps> = ({ items }) => (
-  <div className="grid grid-cols-1 gap-4">
-    {items.map((item) => (
-      <RewardItem key={item.id} {...item} />
-    ))}
-  </div>
-);
+const RewardGrid: FC<RewardGridProps> = ({ items }) => {
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      {items.map((item) => (
+        <RewardItem key={item.id} {...item} />
+      ))}
+    </div>
+  );
+};
 
 export default RewardGrid;
