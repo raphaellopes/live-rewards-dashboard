@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type FC } from 'react';
+import { createContext, useContext, useMemo, useState, type FC } from 'react';
 import { type Reward } from '../utils/types';
 
 interface CartContextType {
@@ -29,16 +29,18 @@ interface CartProviderProps {
 
 export const CartProvider: FC<CartProviderProps> = ({ children }) => {
   const [items, setItems] = useState<Reward[]>([]);
-  const [totalPoints, setTotalPoints] = useState(0);
+
+  const totalPoints = useMemo(
+    () => items.reduce((acc, item) => acc + item.points, 0),
+    [items]
+  );
 
   const addToCart = (reward: Reward) => {
-    setItems([...items, reward]);
-    setTotalPoints(totalPoints + reward.points);
+    setItems((prev) => [...prev, reward]);
   };
 
   const onClearCart = () => {
     setItems([]);
-    setTotalPoints(0);
   };
 
   return (
