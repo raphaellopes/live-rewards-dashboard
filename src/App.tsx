@@ -1,3 +1,5 @@
+import UserProfile from './components/user-profile';
+
 function App() {
   return (
     <div className="page">
@@ -8,7 +10,9 @@ function App() {
         </p>
       </header>
 
-      <main className="page-content">{/* Start coding here */}</main>
+      <main className="page-content">
+        <UserProfile name="John Doe" points={50000} />
+      </main>
     </div>
   );
 }
