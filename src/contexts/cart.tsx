@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState, type FC } from 'react';
 import { type Reward } from '../utils/types';
+import { useUserProfile } from './user-profile';
 
 interface CartContextType {
   items: Reward[];
@@ -28,6 +29,7 @@ interface CartProviderProps {
 }
 
 export const CartProvider: FC<CartProviderProps> = ({ children }) => {
+  const { points: userPoints } = useUserProfile();
   const [items, setItems] = useState<Reward[]>([]);
 
   const totalPoints = useMemo(
@@ -36,6 +38,11 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
   );
 
   const addToCart = (reward: Reward) => {
+    if (userPoints - totalPoints - reward.points < 0) {
+      console.warn('Rejected: Insufficient points balance');
+      return;
+    }
+
     setItems((prev) => [...prev, reward]);
   };
 
