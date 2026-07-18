@@ -74,29 +74,31 @@ const MOCKED_REWARDS = [
 const RewardGrid: FC<RewardGridProps> = () => {
   const { addToCart, totalPoints: cartTotalPoints } = useCart();
   const { points: userPoints } = useUserProfile();
-  const rewardItems = MOCKED_REWARDS.map((reward) => ({
-    id: reward.id,
-    name: reward.name,
-    category: reward.category as RewardCategory,
-    points: reward.cost,
-    onAddToCart: () =>
-      addToCart({
-        id: reward.id,
-        name: reward.name,
-        category: reward.category as RewardCategory,
-        points: reward.cost,
-      }),
-    isAddToCartDisabled: userPoints - cartTotalPoints - reward.cost < 0,
-  }));
+  const remainingPoints = userPoints - cartTotalPoints;
+
   return (
     <div className="grid grid-cols-1 gap-4">
-      {rewardItems.map((item) => (
-        <RewardItem
-          key={item.id}
-          {...item}
-          onAddToCart={() => addToCart(item)}
-        />
-      ))}
+      {MOCKED_REWARDS.map((item) => {
+        const isTooExpensive = remainingPoints - item.cost < 0;
+        return (
+          <RewardItem
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            category={item.category as RewardCategory}
+            points={item.cost}
+            onAddToCart={() =>
+              addToCart({
+                id: item.id,
+                name: item.name,
+                category: item.category as RewardCategory,
+                points: item.cost,
+              })
+            }
+            isAddToCartDisabled={isTooExpensive}
+          />
+        );
+      })}
     </div>
   );
 };
