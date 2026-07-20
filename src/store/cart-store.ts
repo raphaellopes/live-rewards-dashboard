@@ -12,20 +12,23 @@ interface CartStore {
 const useCartStore = create<CartStore>()((set, get) => ({
   itemIds: [],
   getCartTotalPoints: () =>
-    get()?.itemIds?.reduce((acc, itemId) => {
+    get().itemIds.reduce((acc, itemId) => {
       const reward = MOCKED_REWARDS.find((reward) => reward.id === itemId);
       if (!reward) return acc;
       return acc + reward.cost;
     }, 0),
-  addItem: (reward: ItemReward) =>
+  addItem: (reward: ItemReward) => {
+    const cartTotalPoints = get().getCartTotalPoints();
+    const userPoints = useUserStore.getState().totalPoints;
+    if (userPoints - cartTotalPoints - reward.cost < 0) {
+      console.warn('Rejected: Insufficient points balance');
+      return;
+    }
+
     set((state) => {
-      const userPoints = useUserStore.getState().totalPoints;
-      if (userPoints - state.getCartTotalPoints() - reward.cost < 0) {
-        console.warn('Rejected: Insufficient points balance');
-        return;
-      }
       return { itemIds: [...state.itemIds, reward.id] };
-    }),
+    });
+  },
   clearItems: () => set({ itemIds: [] }),
 }));
 

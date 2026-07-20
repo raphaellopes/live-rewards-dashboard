@@ -16,7 +16,9 @@ const Cart: FC = () => {
   const setUserPoints = useSetTotalPoints();
   const items = useMemo(
     () =>
-      itemIds.map((id) => MOCKED_REWARDS.find((reward) => reward.id === id)),
+      itemIds
+        .map((id) => MOCKED_REWARDS.find((reward) => reward.id === id))
+        .filter(Boolean),
     [itemIds]
   );
   const id = useId();
