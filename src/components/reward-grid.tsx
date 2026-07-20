@@ -1,19 +1,14 @@
 import { type FC } from 'react';
 import { formatPoints } from '../utils/format-points';
-import { type Reward, type RewardCategory } from '../utils/types';
-import { useCart } from '../contexts/cart';
-import { useUserProfile } from '../contexts/user-profile';
+import { type Reward } from '../utils/types';
+import { CATEGORY_NAME_MAP, MOCKED_REWARDS } from '../data/constants';
+import { useAddItem, useCartTotalPoints } from '../store/cart-store';
+import { useTotalPoints } from '../store/user-store';
 
 interface RewardItemProps extends Reward {
   onAddToCart?: (id: string) => void;
   isAddToCartDisabled?: boolean;
 }
-
-const CATEGORY_NAME_MAP: Record<RewardCategory, string> = {
-  travel: 'Travel',
-  'gift-card': 'Gift Card',
-  merchandise: 'Merchandise',
-};
 
 const RewardItem: FC<RewardItemProps> = ({
   id,
@@ -49,31 +44,11 @@ const RewardItem: FC<RewardItemProps> = ({
 );
 
 interface RewardGridProps {}
-const MOCKED_REWARDS = [
-  { id: '1', name: 'Free Flight to Iceland', cost: 45000, category: 'travel' },
-  {
-    id: '2',
-    name: 'Luxury Hotel Upgrade (1 Night)',
-    cost: 12000,
-    category: 'travel',
-  },
-  { id: '3', name: '$50 Amazon Gift Card', cost: 5000, category: 'gift-card' },
-  {
-    id: '4',
-    name: '$100 Starbucks Gift Card',
-    cost: 9500,
-    category: 'gift-card',
-  },
-  {
-    id: '5',
-    name: 'Noise-Canceling Headphones',
-    cost: 20000,
-    category: 'merchandise',
-  },
-];
+
 const RewardGrid: FC<RewardGridProps> = () => {
-  const { addToCart, totalPoints: cartTotalPoints } = useCart();
-  const { points: userPoints } = useUserProfile();
+  const addToCart = useAddItem();
+  const cartTotalPoints = useCartTotalPoints();
+  const userPoints = useTotalPoints();
   const remainingPoints = userPoints - cartTotalPoints;
 
   return (
@@ -85,16 +60,9 @@ const RewardGrid: FC<RewardGridProps> = () => {
             key={item.id}
             id={item.id}
             name={item.name}
-            category={item.category as RewardCategory}
+            category={item.category}
             points={item.cost}
-            onAddToCart={() =>
-              addToCart({
-                id: item.id,
-                name: item.name,
-                category: item.category as RewardCategory,
-                points: item.cost,
-              })
-            }
+            onAddToCart={() => addToCart(item)}
             isAddToCartDisabled={isTooExpensive}
           />
         );

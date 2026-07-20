@@ -1,11 +1,24 @@
-import { type FC, useId } from 'react';
+import { type FC, useId, useMemo } from 'react';
 import { formatPoints } from '../utils/format-points';
-import { useUserProfile } from '../contexts/user-profile';
-import { useCart } from '../contexts/cart';
+import { MOCKED_REWARDS } from '../data/constants';
+import {
+  useCartTotalPoints,
+  useClearItems,
+  useItemIds,
+} from '../store/cart-store';
+import { useSetTotalPoints, useTotalPoints } from '../store/user-store';
 
 const Cart: FC = () => {
-  const { items, totalPoints: cartTotalPoints, onClearCart } = useCart();
-  const { points: userPoints, setPoints: setUserPoints } = useUserProfile();
+  const itemIds = useItemIds();
+  const cartTotalPoints = useCartTotalPoints();
+  const onClearCart = useClearItems();
+  const userPoints = useTotalPoints();
+  const setUserPoints = useSetTotalPoints();
+  const items = useMemo(
+    () =>
+      itemIds.map((id) => MOCKED_REWARDS.find((reward) => reward.id === id)),
+    [itemIds]
+  );
   const id = useId();
 
   const handleClickRedeem = () => {
@@ -20,7 +33,7 @@ const Cart: FC = () => {
       <ul className="space-y-2">
         {items.map((item, index) => (
           <li key={`${id}-${item.id}-${index}`} className="text-sm">
-            {item.name} - {formatPoints(item.points)}
+            {item.name} - {formatPoints(item.cost)}
           </li>
         ))}
       </ul>

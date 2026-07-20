@@ -1,17 +1,20 @@
 import { type FC } from 'react';
 
 import { formatPoints } from '../utils/format-points';
-import { useUserProfile } from '../contexts/user-profile';
+import { useTotalPoints } from '../store/user-store';
 
 interface UserProfileProps {}
 
 const UserProfile: FC<UserProfileProps> = () => {
-  const { name, points } = useUserProfile();
+  const name = 'John Doe';
+  const totalPoints = useTotalPoints();
   return (
     <div className="flex items-center gap-2">
       <div className="flex flex-col">
         <h1 className="font-medium">{name}</h1>
-        <span className="text-sm text-gray-500">{formatPoints(points)}</span>
+        <span className="text-sm text-gray-500">
+          {formatPoints(totalPoints)}
+        </span>
       </div>
     </div>
   );

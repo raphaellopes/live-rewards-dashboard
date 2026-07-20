@@ -1,0 +1,38 @@
+import { create } from 'zustand';
+import useUserStore from './user-store';
+import { MOCKED_REWARDS, type ItemReward } from '../data/constants';
+
+interface CartStore {
+  getCartTotalPoints: () => number;
+  itemIds: string[];
+  addItem: (reward: ItemReward) => void;
+  clearItems: () => void;
+}
+
+const useCartStore = create<CartStore>()((set, get) => ({
+  itemIds: [],
+  getCartTotalPoints: () =>
+    get()?.itemIds?.reduce((acc, itemId) => {
+      const reward = MOCKED_REWARDS.find((reward) => reward.id === itemId);
+      if (!reward) return acc;
+      return acc + reward.cost;
+    }, 0),
+  addItem: (reward: ItemReward) =>
+    set((state) => {
+      const userPoints = useUserStore.getState().totalPoints;
+      if (userPoints - state.getCartTotalPoints() - reward.cost < 0) {
+        console.warn('Rejected: Insufficient points balance');
+        return;
+      }
+      return { itemIds: [...state.itemIds, reward.id] };
+    }),
+  clearItems: () => set({ itemIds: [] }),
+}));
+
+// selectors
+export const useCartTotalPoints = () =>
+  useCartStore((state) => state.getCartTotalPoints());
+export const useItemIds = () => useCartStore((state) => state.itemIds);
+export const useAddItem = () => useCartStore((state) => state.addItem);
+export const useClearItems = () => useCartStore((state) => state.clearItems);
+export default useCartStore;
