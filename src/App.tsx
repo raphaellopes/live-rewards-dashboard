@@ -8,7 +8,8 @@ function App() {
       <header className="page-header">
         <h1 className="page-title">Rewards Dashboard</h1>
         <p className="page-subtitle">
-          Build your points balance and redemption UI here.
+          Use the rewards grid to add items to your cart. Once you have items in
+          your cart, you can redeem them for points using the "Redeem" button.
         </p>
       </header>
 
