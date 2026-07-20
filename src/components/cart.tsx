@@ -27,7 +27,7 @@ const Cart: FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 border border-gray-200 p-4 rounded-md min-w-xs">
+    <div className="flex flex-col gap-2 border border-gray-200 p-4 rounded-md min-w-xs max-w-xs">
       <h2 className="font-medium">Cart</h2>
       <p className="text-sm text-gray-500">{formatPoints(cartTotalPoints)}</p>
       <ul className="space-y-2">
@@ -38,13 +38,22 @@ const Cart: FC = () => {
         ))}
       </ul>
 
-      <button
-        className="text-sm text-blue-500 bg-blue-500 text-white px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
-        disabled={cartTotalPoints === 0}
-        onClick={handleClickRedeem}
-      >
-        Redeem
-      </button>
+      {items.length === 0 && (
+        <p className="text-sm text-gray-500 bg-gray-500/10 p-2 rounded-md">
+          No items in cart. Please add some items to your cart from the rewards
+          table using the "Add to Cart" button.
+        </p>
+      )}
+
+      {cartTotalPoints > 0 && (
+        <button
+          className="text-sm text-blue-500 bg-blue-500 text-white px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={cartTotalPoints === 0}
+          onClick={handleClickRedeem}
+        >
+          Redeem
+        </button>
+      )}
       {cartTotalPoints > 0 && (
         <p className="text-xs text-orange-500 bg-orange-500/10 p-2 rounded-md">
           You will have {formatPoints(userPoints - cartTotalPoints)} left after
