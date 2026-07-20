@@ -1,8 +1,8 @@
 # Live Rewards Dashboard
 
-A small React app for browsing rewards, adding them to a cart, and redeeming them against a points balance. Cart and user profile state are shared via React context.
+A small React app for browsing rewards, adding them to a cart, and redeeming them against a points balance. Cart and user profile state are managed with Zustand.
 
-Built with **Vite**, **React**, **TypeScript**, and **Tailwind CSS**.
+Built with **Vite**, **React**, **TypeScript**, **Tailwind CSS**, and **Zustand**.
 
 ## Prerequisites
 
