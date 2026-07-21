@@ -3,5 +3,5 @@ export type Reward = {
   id: string;
   name: string;
   category: RewardCategory;
-  points: number;
+  cost: number;
 };

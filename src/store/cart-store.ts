@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import useUserStore from './user-store';
-import { MOCKED_REWARDS, type ItemReward } from '../data/constants';
+import { MOCKED_REWARDS } from '../data/constants';
+import type { Reward } from '../utils/types';
 
 interface CartStore {
   getCartTotalPoints: () => number;
   itemIds: string[];
-  addItem: (reward: ItemReward) => void;
+  addItem: (reward: Reward) => void;
   clearItems: () => void;
 }
 
@@ -17,7 +18,7 @@ const useCartStore = create<CartStore>()((set, get) => ({
       if (!reward) return acc;
       return acc + reward.cost;
     }, 0),
-  addItem: (reward: ItemReward) => {
+  addItem: (reward: Reward) => {
     const cartTotalPoints = get().getCartTotalPoints();
     const userPoints = useUserStore.getState().totalPoints;
     if (userPoints - cartTotalPoints - reward.cost < 0) {

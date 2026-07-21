@@ -14,14 +14,14 @@ const RewardItem: FC<RewardItemProps> = ({
   id,
   name,
   category,
-  points,
+  cost,
   onAddToCart,
   isAddToCartDisabled = false,
 }) => (
   <div className="grid grid-cols-4 gap-2 border-b border-gray-200 pb-2">
     <div className="col-span-2 flex flex-col">
       <span className="text-sm font-medium">{name}</span>
-      <span className="text-sm text-gray-500">{formatPoints(points)}</span>
+      <span className="text-sm text-gray-500">{formatPoints(cost)}</span>
     </div>
     <div className="col-span-1">
       <span className="text-sm text-gray-500">
@@ -61,7 +61,7 @@ const RewardGrid: FC<RewardGridProps> = () => {
             id={item.id}
             name={item.name}
             category={item.category}
-            points={item.cost}
+            cost={item.cost}
             onAddToCart={() => addToCart(item)}
             isAddToCartDisabled={isTooExpensive}
           />

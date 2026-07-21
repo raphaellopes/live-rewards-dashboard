@@ -1,13 +1,6 @@
-import type { RewardCategory } from '../utils/types';
+import type { RewardCategory, Reward } from '../utils/types';
 
 export const DEFAULT_USER_TOTAL_POINTS = 50000;
-
-export type ItemReward = {
-  id: string;
-  name: string;
-  cost: number;
-  category: RewardCategory;
-};
 
 export const CATEGORY_NAME_MAP: Record<RewardCategory, string> = {
   travel: 'Travel',
@@ -15,7 +8,7 @@ export const CATEGORY_NAME_MAP: Record<RewardCategory, string> = {
   merchandise: 'Merchandise',
 };
 
-export const MOCKED_REWARDS: ItemReward[] = [
+export const MOCKED_REWARDS: Reward[] = [
   { id: '1', name: 'Free Flight to Iceland', cost: 45000, category: 'travel' },
   {
     id: '2',

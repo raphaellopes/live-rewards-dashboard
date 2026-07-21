@@ -18,7 +18,7 @@ const Cart: FC = () => {
     () =>
       itemIds
         .map((id) => MOCKED_REWARDS.find((reward) => reward.id === id))
-        .filter(Boolean),
+        .filter((item) => !!item),
     [itemIds]
   );
   const id = useId();
