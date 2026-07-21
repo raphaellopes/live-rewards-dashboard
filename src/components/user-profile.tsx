@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 
-import { formatPoints } from '../utils/format-points';
+import { formatPoints } from '../utils';
 import { useTotalPoints } from '../store/user-store';
 
 interface UserProfileProps {}

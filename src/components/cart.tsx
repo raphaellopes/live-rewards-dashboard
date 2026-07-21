@@ -1,5 +1,5 @@
 import { type FC, useId, useMemo } from 'react';
-import { formatPoints } from '../utils/format-points';
+import { formatPoints } from '../utils';
 import { MOCKED_REWARDS } from '../data/constants';
 import {
   useCartTotalPoints,

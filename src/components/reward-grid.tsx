@@ -1,6 +1,5 @@
 import { type FC } from 'react';
-import { formatPoints } from '../utils/format-points';
-import { type Reward } from '../utils/types';
+import { formatPoints, canAddRewardToCart, type Reward } from '../utils';
 import { CATEGORY_NAME_MAP, MOCKED_REWARDS } from '../data/constants';
 import { useAddItem, useCartTotalPoints } from '../store/cart-store';
 import { useTotalPoints } from '../store/user-store';
@@ -49,12 +48,16 @@ const RewardGrid: FC<RewardGridProps> = () => {
   const addToCart = useAddItem();
   const cartTotalPoints = useCartTotalPoints();
   const userPoints = useTotalPoints();
-  const remainingPoints = userPoints - cartTotalPoints;
 
   return (
     <div className="grid grid-cols-1 gap-4">
       {MOCKED_REWARDS.map((item) => {
-        const isTooExpensive = remainingPoints - item.cost < 0;
+        const isTooExpensive = !canAddRewardToCart(
+          item,
+          userPoints,
+          cartTotalPoints
+        );
+
         return (
           <RewardItem
             key={item.id}
