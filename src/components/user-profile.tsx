@@ -3,9 +3,7 @@ import { type FC } from 'react';
 import { formatPoints } from '../utils';
 import { useTotalPoints } from '../store/user-store';
 
-interface UserProfileProps {}
-
-const UserProfile: FC<UserProfileProps> = () => {
+const UserProfile: FC = () => {
   const name = 'John Doe';
   const totalPoints = useTotalPoints();
   return (

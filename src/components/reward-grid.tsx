@@ -42,9 +42,7 @@ const RewardItem: FC<RewardItemProps> = ({
   </div>
 );
 
-interface RewardGridProps {}
-
-const RewardGrid: FC<RewardGridProps> = () => {
+const RewardGrid: FC = () => {
   const addToCart = useAddItem();
   const cartTotalPoints = useCartTotalPoints();
   const userPoints = useTotalPoints();
