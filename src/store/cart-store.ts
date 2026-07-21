@@ -27,7 +27,7 @@ const useCartStore = create<CartStore>()((set, get) => ({
   },
   addItem: (reward: Reward) => {
     set((state) => {
-      if (!get().canAddItem(reward)) {
+      if (!state.canAddItem(reward)) {
         console.warn('Rejected: Insufficient points balance');
         return state;
       }
