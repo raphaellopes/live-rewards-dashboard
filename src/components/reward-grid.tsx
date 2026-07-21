@@ -17,7 +17,7 @@ const RewardItem: FC<RewardItemProps> = ({
   onAddToCart,
   isAddToCartDisabled = false,
 }) => (
-  <div className="grid grid-cols-4 gap-2 border-b border-gray-200 pb-2">
+  <div className="grid grid-cols-5 gap-2 border-b border-gray-200 pb-2">
     <div className="col-span-2 flex flex-col">
       <span className="text-sm font-medium">{name}</span>
       <span className="text-sm text-gray-500">{formatPoints(cost)}</span>
@@ -27,12 +27,12 @@ const RewardItem: FC<RewardItemProps> = ({
         {CATEGORY_NAME_MAP[category]}
       </span>
     </div>
-    <div className="col-span-1 flex items-center justify-end gap-2">
+    <div className="col-span-2 flex flex-col-reverse md:flex-row items-center justify-end gap-2">
       {isAddToCartDisabled && (
-        <span className="text-sm text-red-500">Insufficient points</span>
+        <span className="text-xs text-red-500">Insufficient points</span>
       )}
       <button
-        className="text-sm text-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn btn-primary"
         disabled={isAddToCartDisabled}
         onClick={() => onAddToCart?.(id)}
       >
