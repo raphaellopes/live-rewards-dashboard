@@ -41,9 +41,7 @@ describe('Cart', () => {
       screen.getByText('$100 Starbucks Gift Card - 9,500 points')
     ).toBeInTheDocument();
     expect(screen.getByText('14,500 points')).toBeInTheDocument();
-    expect(
-      screen.queryByText(/No items in cart/)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/No items in cart/)).not.toBeInTheDocument();
   });
 
   it('shows remaining points message when cart has items', () => {

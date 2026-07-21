@@ -23,11 +23,11 @@ Open the URL shown in the terminal (usually `http://localhost:5173`).
 
 ## Scripts
 
-| Command             | Description                          |
-| ------------------- | ------------------------------------ |
-| `npm run dev`       | Start the development server         |
-| `npm run build`     | Type-check and build for production  |
-| `npm run preview`   | Preview the production build locally |
-| `npm run lint`      | Run ESLint                           |
-| `npm run format`    | Format files with Prettier           |
-| `npm run format:check` | Check formatting without writing  |
+| Command                | Description                          |
+| ---------------------- | ------------------------------------ |
+| `npm run dev`          | Start the development server         |
+| `npm run build`        | Type-check and build for production  |
+| `npm run preview`      | Preview the production build locally |
+| `npm run lint`         | Run ESLint                           |
+| `npm run format`       | Format files with Prettier           |
+| `npm run format:check` | Check formatting without writing     |
