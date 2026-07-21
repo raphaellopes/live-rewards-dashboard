@@ -40,14 +40,14 @@ After running coverage, open `coverage/index.html` in your browser for an intera
 
 ## Scripts
 
-| Command                | Description                          |
-| ---------------------- | ------------------------------------ |
-| `npm run dev`          | Start the development server         |
-| `npm run build`        | Type-check and build for production  |
-| `npm run preview`      | Preview the production build locally |
-| `npm run lint`         | Run ESLint                           |
-| `npm run format`       | Format files with Prettier           |
-| `npm run format:check` | Check formatting without writing     |
-| `npm test`             | Run tests in watch mode              |
-| `npm run test:run`     | Run tests once                       |
-| `npm run test:coverage`| Run tests and generate HTML coverage |
+| Command                 | Description                          |
+| ----------------------- | ------------------------------------ |
+| `npm run dev`           | Start the development server         |
+| `npm run build`         | Type-check and build for production  |
+| `npm run preview`       | Preview the production build locally |
+| `npm run lint`          | Run ESLint                           |
+| `npm run format`        | Format files with Prettier           |
+| `npm run format:check`  | Check formatting without writing     |
+| `npm test`              | Run tests in watch mode              |
+| `npm run test:run`      | Run tests once                       |
+| `npm run test:coverage` | Run tests and generate HTML coverage |
